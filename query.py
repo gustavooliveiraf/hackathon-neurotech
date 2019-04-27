@@ -9,13 +9,13 @@ called 'properties' with some useful tools and information about how we want you
 """
 """
 <#@#HydraMetadata#@#>
-{"version":"1.0.0",
+{"version":"1.0.1",
 "requirements":["beautifulsoup4"],
-"developer_contact":"gof@cin.ufpe.br",
-"host": "https://www.google.com/search?q=",
+"developer_contact":"camposmoraes@outlook.com",
+"host": "https://www.jusbrasil.com.br/busca?q=",
 "timeout":"15",
 "selenium_usage":"true",
-"query_key":"name",
+"query_key":"cnpj",
 "query_name":"GRD001"}
 </#@#HydraMetadata#@#>
 """
@@ -36,6 +36,7 @@ if 'pytest' in sys.modules:
 """Your own imports go down here"""
 import requests
 from bs4 import BeautifulSoup
+
 
 def get_target_host():
     return Enums.environ_variables['host']
@@ -63,6 +64,7 @@ def query_execution(input_data, properties):
 
     # First, you need to retrieve the information from the source we passed to you. You can use the method 'get_target_host()'
     # to do so. Here, that method only accesses an environment variable.
+    print('>>>>>>>>>>>>.',input_data['cnpj'])
     def parser_string(text):
         text =  text.strip()
         text = text.replace('\n', " ")
@@ -79,22 +81,18 @@ def query_execution(input_data, properties):
     cleaned_html = save_scraper_data(DRIVER.page_source, input_data)
 
     parsed_html = BeautifulSoup(cleaned_html)
-
-    element = parsed_html.body.find_all('div', attrs={'class': 'Ob2kfd'})
-
-    comentarios = ''
-    avaliacao = ''
-    for elem in element:
-        comentarios = elem.find('a').text.split(" ")[0]
-        for elem2 in elem:
-            avaliacao = elem2.span.text
+    table = parsed_html.body.find_all('div', attrs={'class': 'SearchResults-count'})
 
     result = {}
 
-    result['comentarios'] = comentarios
-    result['avaliacao'] = avaliacao
-
+    for element in table:
+        key = "citacoes_jus"
+        value = parser_string(element.find('span').text)
+        value = value.split(" ")
+        result[key] = value
+    
     return result
+
 
 def request(input_data, properties):
     file_timestamp = time.strftime(Enums.Defaults["TIMESTAMP_FORMAT"])
@@ -123,5 +121,7 @@ def test_request():
     # You can extend the properties from you file metadata
     my_test_properties = Utils.load_parameters(__file__)
 
-    result = request({Enums.environ_variables.get('query_key'): "neurotech"}, my_test_properties)
+    result = request({"cnpj":"00948060000130"}, my_test_properties)
     assert type(result) == dict
+    # assert result["Nome de fantasia"] == "NEUROTECH"
+
