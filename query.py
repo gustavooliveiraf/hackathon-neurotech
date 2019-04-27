@@ -9,14 +9,14 @@ called 'properties' with some useful tools and information about how we want you
 """
 """
 <#@#HydraMetadata#@#>
-{"version":"1.0.5",
+{"version":"1.0.0",
 "requirements":["beautifulsoup4"],
-"developer_contact":"raony.alves@neurotech.com.br",
+"developer_contact":"gof@cin.ufpe.br",
 "host": "https://www.google.com/search?q=",
 "timeout":"15",
 "selenium_usage":"true",
 "query_key":"name",
-"query_name":"ABC001"}
+"query_name":"GRD001"}
 </#@#HydraMetadata#@#>
 """
 """ NeuroLake imports """
