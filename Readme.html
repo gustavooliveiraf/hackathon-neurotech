@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<!-- [![N|Solid](https://cdn.pbrd.co/images/HPpxoF6.png)](https://www.neurolake.neurotech.com.br/) -->
+<h1 id="neurolake-hydra-development-kit">NeuroLake Hydra Development Kit</h1>
+<h1 id="query-developer-documentation">Query Developer Documentation</h1>
+<p>Welcome to NeuroLake! We are happy to bring you to our community of developers! Here at NeuroLake we collect data across all sorts of internet sources and apply our intelligence to build solutions that predict the future! Our platform has three major pillars:</p>
+<ul>
+<li>Collect data</li>
+<li>Analyze and transform data</li>
+<li>Provide the transformed data</li>
+</ul>
+<p>Here in this documentation, we will focus on the first pillar: <strong>Collecting Data</strong>! To collect our data we use a set of web scrapers known as <em>queries</em>. Basically, a <em>query</em> is a piece of code written in Python that accesses a place on the web and retrieves information.</p>
+<p><em>Queries</em> run in one of our platform's solutions called <em>NeuroLake Hydra</em>. It is responsible for orchestrating everything needed for a <em>query</em> to execute. In <em>Hydra</em>, we take care of complex processes such as error retrying, block avoiding strategies, query execution speed control, etc. When you execute a Hydra query you don't need to worry about any of those scary things! We take care of that for you, so you can focus on what matters: <strong>Build your Hydra Query</strong></p>
+<p>Now we will guide you through the process of developing your first query. Let's go!</p>
+<h1 id="building-your-own-hydra-query">Building your own Hydra Query</h1>
+<h2 id="what-do-you-need-installed">What do you need installed?</h2>
+<p>First things first! To build a Hydra Query you need to meet the following requirements:</p>
+<ul>
+<li><a href="https://www.python.org/">Python 3.6</a> installed</li>
+<li><a href="https://pip.pypa.io/en/stable/installing/">PIP</a> updated to the latest version</li>
+<li>Any Linux distribution</li>
+</ul>
+<p>Pretty simple, right? With all the requirements installed, all you need to do is to execute the requirements.txt file that comes shipped with your Hydra Development Kit:</p>
+<pre class="hljs"><code><div>$ <span class="hljs-built_in">cd</span> ~/Your_Hydra_Folder/
+$ pip install -r requirements.txt
+</div></code></pre>
+<hr>
+<h2 id="using-the-hydra-development-kit">Using the Hydra Development Kit</h2>
+<p><em>Hydra Development Kit</em>'s mission is to make building Hydra Queries as easy as possible! Using it is pretty simple! Let's have a look at the package's structure.</p>
+<pre class="hljs"><code><div>├── chrome.deb
+├── chromedriver
+├── query.py
+├── Readme.md
+├── requirements.txt
+└── utils
+    ├── Lake_Enum.py
+    ├── Lake_Exceptions.py
+    ├── Lake_Utils.py
+</div></code></pre>
+<p>The only file you need to worry about is <code>query.py</code>. We will talk about it later, but for now, let's review our package structure by order.</p>
+<h3 id="the-utils-package">The &quot;Utils&quot; package</h3>
+<p>The Utils package contains all the methods needed by a <em>hydra query</em> to work. Using the utils methods ensures that your code is following our development standards. The following methods are provided by the utils package:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>save_data</td>
+<td>Saves the provided content in the Hydra Structure. This method ensures that the data you are saving is stored according to NeuroLake patterns</td>
+</tr>
+<tr>
+<td>generate_file_name</td>
+<td>generates a file name for the file that will be saved by <code>save_data</code></td>
+</tr>
+<tr>
+<td>generate_timestamp</td>
+<td>Creates a new timestamp string in the pattern used by NeuroLake applications</td>
+</tr>
+</tbody>
+</table>
+<h3 id="using-lakeexceptions">Using Lake_Exceptions</h3>
+<p>The last file in our package is <code>Lake_Exceptions.py</code>. Since no code is immune to failure, we need to make sure your <em>hydra query</em> speaks the same language as our architecture when it comes to exception raising.</p>
+<p>The following exceptions are available as part of our <code>Lake_Exceptions</code>package:</p>
+<table>
+<thead>
+<tr>
+<th>Exception</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BlockException</td>
+<td>Use it when your query has encountered any situation where it is impossible to move forward. For example Captcha, the website is not responding, the machine IP was black mailed</td>
+</tr>
+<tr>
+<td>HttpTimeoutException</td>
+<td>Your requisition to the target host is taking too long to arrive</td>
+</tr>
+<tr>
+<td>PageNotLoadedException</td>
+<td>The page is not loading</td>
+</tr>
+<tr>
+<td>UnexpectedResultException</td>
+<td>The page loaded differently from expected</td>
+</tr>
+<tr>
+<td>CriticalErrorException</td>
+<td><strong>ANY</strong> exception that is not one of the above</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-query-template">The query template</h3>
+<p>The query template is the actual file you are going to be developing. It a pre-filled python code that basically does nothing by itself, but with your help, will become a brand new <em>Hydra Query</em>!</p>
+<p>The template itself contains documentation that will help you use it. But basically, you need to fill the <code>query_execution</code> with your code.</p>
+<p><strong>The HydraMetadata section</strong>
+Your query file contains all the information needed by the architecture to execute it. A very important section is the <em>HydraMetadata</em> section. This JSON object is translated by the architecture during the API query register and tells it how your query works and what it will need to execute properly. Here is an explanation about the content of the HydraMetadata section:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>The version of your query. We follow a simple version of the Semantic Versioning pattern. This means that your query version must follow the pattern MAJOR.MINOR.PATCH</td>
+</tr>
+<tr>
+<td>requirements</td>
+<td>list [string]</td>
+<td>a list of python libraries required by your query to execute. This list will be passed to the <code>pip install -r</code> command.</td>
+</tr>
+<tr>
+<td>developer_contact</td>
+<td>string</td>
+<td>A valid email. It is important to provide a valid email because this is how we will contact you if anything go wrong with your query registration</td>
+</tr>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>This is the starting point of your query. This is the domain in the format https://www.example.com</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>integer</td>
+<td>This is the maximum time you query takes to execute completely</td>
+</tr>
+<tr>
+<td>selenium_usage</td>
+<td>string</td>
+<td>if you set this to &quot;true&quot;, the hydra architecture will build a selenium webdriver specially tunned to execute with the best performance in the AWS EC2 environment</td>
+</tr>
+<tr>
+<td>query_name</td>
+<td>string</td>
+<td>This is the Codename for your query. It is composed by a Three letters and Three numbers long. For example: TST001. We will provide you with the rules for naming your query</td>
+</tr>
+</tbody>
+</table>
+<p>Your <code>query_execution</code> method receives two arguments as it's inputs:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input_data</td>
+<td>A dictionary containing the input data to be executed by your query. When you provide the Hydra engine with a file containing multiple lines of input, each hydra worker receives one line as a dictionary <code>{&quot;query_key&quot;:&quot;input_content&quot;}</code></td>
+</tr>
+<tr>
+<td>properties</td>
+<td>This dictionary contains the properties needed by your query to work properly in our architecture. Currently, the avaliable properties are <code>timeout</code> (number in seconds that you query should take to execute) and <code>driver</code> (if you provide the flag &quot;selenium_usage&quot; in your metadata, you will receive a properly configured webdriver to use in your execution)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The result of your query</strong></p>
+<p>Your <code>query_execution</code> method must be responsible for collecting and processing the data from the web source. You must be responsible for extracting the information and structuring it in a JSON object (python dict). We call this process <em>parsing</em>. Once you finished parsing your data, you must return it as a dict.</p>
+<p>For more information, refer to the example <code>query.py</code> file that comes shipped with this development kit.</p>
+<hr>
+<p>##Testing your Hydra Query
+Every good code should be tested! In Hydra we only accept queries with at least one test implemented. Your <code>query.py</code> file comes with a prefilled <code>test_request</code> method. This method basically calls your query main function and verifies if the result (returned bu your <code>query_execution</code> method) is a python dict. You should improve this method and build others in order for it to test your query's business logic.</p>
+<p>To test your hydra query, simply go to your hydra dev kit home folder and type:</p>
+<pre class="hljs"><code><div>pytest query.py
+</div></code></pre>
+<p>this will execute the pytest framework and start the tests for your hyra query file</p>
+<hr>
+<p>##Deploying your Hydra Query</p>
+<p>Once your code is developed and testes, you must deploy it to our infrastructure. Here at Hydra, we provide you with a REST API that contains methods for you deploy and start your query executions.</p>
+<p>###Query Registration
+To register your query, use the <code>/register_hydra_query</code> method. You will provide the python file developed by you and the Hydra API will perform all the validations to make sure your code follows our development standards. If everything went OK, you will receive a success email.</p>
+<p>###Describe your query registration
+Once you have finished your query registration, you can use the <code>/describe_query_registry</code> method to check if you query version was registered and it is ready for use.</p>
+<p>###Start your execution
+If you have a working query version registered, you can start a new execution by using the <code>/start_execution</code> method.  You must provide an AWS s3 path with all the data you aim to execute you query on. Once your execution is finished, you should have the processed data avaliable for you to use with the Flame framework.</p>
+<hr>
+<p>##Hydra API Documentation
+You will find the documentation for the hydra API in the swagger definition shipped with this Development Kit</p>
+
+</body>
+</html>

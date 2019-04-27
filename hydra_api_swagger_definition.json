@@ -1,0 +1,537 @@
+{
+  "swagger": "2.0",
+  "basePath": "/dev",
+  "info": {
+    "title": "Neurolake-Hydra-API",
+    "version": "3.0.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/describe_query_registry": {
+      "get": {
+        "tags": [
+          "Query Control Methods"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the information about the Hydra Query",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query_name",
+            "required": true,
+            "description": "The hydra query codename",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about the Hydra Execution",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "acknowledged": {
+                  "type": "boolean",
+                  "description": "Flag that defines if everything was executed successfully"
+                },
+                "query_properties": {
+                  "type": "object",
+                  "description": "The properties from the requested hydra query",
+                  "properties": {
+                    "contributors": {
+                      "type": "array",
+                      "description": "a list of emails from all the developers registered as contributors for the registered query",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "examples": {
+              "Basic information about a query registration": {
+                "acknowledged": true,
+                "query_properties": {
+                  "contributors": [
+                    "raony.alves@neurotech.com.br"
+                  ],
+                  "query_name": "WEB001",
+                  "versions": {
+                    "1.9.1": {
+                      "default_properties": {
+                        "block_threshold": "0.5",
+                        "driver_type": "CHROME",
+                        "execution_delay": "30",
+                        "input_delete_threshold": "14",
+                        "max_retakes": "20",
+                        "referrer": "None",
+                        "timeout": "20",
+                        "user_agent": [
+                          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0"
+                        ]
+                      },
+                      "sa-east-1": {
+                        "block_threshold": "0.5",
+                        "driver_type": "FIREFOX",
+                        "execution_delay": "30",
+                        "input_delete_threshold": "15",
+                        "max_retakes": "20",
+                        "timeout": "20",
+                        "user_agent": [
+                          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuthentication": []
+          }
+        ]
+      }
+    },
+    "/register_hydra_query": {
+      "post": {
+        "tags": [
+          "Query Control Methods"
+        ],
+        "description": "Use this method to registry a new Hydra Query on the Architecture",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "hydra_query_file",
+            "in": "formData",
+            "type": "file",
+            "description": "File containing the Hydra query implementation, the file should follow the Hydra query standard",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A new query was registered successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "query_version": {
+                  "description": "version of the query registered",
+                  "type": "string"
+                },
+                "operation_code": {
+                  "description": "Unique identifier for the operation",
+                  "type": "string"
+                },
+                "acknowledged": {
+                  "description": "Flag that defines if everything was executed successfully",
+                  "type": "boolean"
+                }
+              },
+              "example": {
+                "acknowledged": true,
+                "query_version": "12.0.5",
+                "operation_code": "1585897996653"
+              }
+            }
+          },
+          "502": {
+            "description": "There was an error in the request processing",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "description": "A description for the ocurred error",
+                  "type": "string"
+                },
+                "acknowledged": {
+                  "description": "Flag that defines that the execution was not a success",
+                  "type": "boolean"
+                }
+              },
+              "example": {
+                "acknowledged": false,
+                "error": "3.0 is not a valid version format. You must specify a valid version"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuthentication": []
+          }
+        ]
+      }
+    },
+    "/start_execution": {
+      "post": {
+        "tags": [
+          "Execution Workflow"
+        ],
+        "description": "Method used to start an execution on NeuroLake Hydra. You can use it to start new executions or to add new data to an existing execution",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Starts an execution of Neurolake Hydra Stepfunctions",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "operation_code": {
+                  "description": "Unique operation code for the execution",
+                  "type": "string"
+                },
+                "acknowledged": {
+                  "description": "Flag that defines if the execution was started successfully",
+                  "type": "boolean"
+                }
+              },
+              "example": {
+                "acknowledged": true,
+                "operation_code": "1585897996653"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "request body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "operation_code": {
+                  "type": "string",
+                  "description": "If provided and operation_code, the input content will be appended to an existing Hydra execution"
+                },
+                "client_name": {
+                  "type": "string",
+                  "description": "Name of the client responsible for the requisition"
+                },
+                "target_region": {
+                  "type": "string",
+                  "description": "Region in which the execution will take place"
+                },
+                "inputs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "s3_key": {
+                        "type": "string",
+                        "description": "S3 Key for the file to be executed"
+                      },
+                      "target_queries": {
+                        "type": "object",
+                        "description": "The queries and version to be executed using the current input. The mapping is composed by 'query_name':'query_version'"
+                      }
+                    },
+                    "required": [
+                      "s3_key",
+                      "target_queries"
+                    ]
+                  },
+                  "description": "One of the layout types returned by the 'describe_layouts' call"
+                },
+                "user_data": {
+                  "type": "object",
+                  "description": "Object containing specific environment variables to be passed down to the query execution"
+                }
+              },
+              "required": [
+                "client_name",
+                "inputs",
+                "target_region"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuthentication": []
+          }
+        ]
+      }
+    },
+    "/feed_execution": {
+      "post": {
+        "tags": [
+          "Execution Workflow"
+        ],
+        "description": "Use this method to add a new set of data to an existing execution",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "request body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "operation_code": {
+                  "type": "string",
+                  "description": "The input content will be appended to an existing Hydra execution reffered by the provided operation_code"
+                },
+                "client_name": {
+                  "type": "string",
+                  "description": "Name of the client responsible for the requisition"
+                },
+                "target_region": {
+                  "type": "string",
+                  "description": "Region in which the execution is taking place"
+                },
+                "inputs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "s3_key": {
+                        "type": "string",
+                        "description": "S3 Key for the file to be executed"
+                      },
+                      "target_queries": {
+                        "type": "object",
+                        "description": "The queries and version to be executed using the current input. The mapping is composed by 'query_name':'query_version'"
+                      }
+                    },
+                    "required": [
+                      "s3_key",
+                      "target_queries"
+                    ]
+                  },
+                  "description": "One of the layout types returned by the 'describe_layouts' call"
+                }
+              },
+              "required": [
+                "operation_code",
+                "client_name",
+                "inputs",
+                "target_region"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Input successfully added to the processing queue",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "operation_code": {
+                  "description": "Unique operation code for the execution",
+                  "type": "string"
+                },
+                "acknowledged": {
+                  "description": "Flag that defines if the execution was started successfully",
+                  "type": "boolean"
+                }
+              },
+              "example": {
+                "acknowledged": true,
+                "operation_code": "1585897996653"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuthentication": []
+          }
+        ]
+      }
+    },
+    "/describe_execution": {
+      "get": {
+        "tags": [
+          "Execution Workflow"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the information about the Hydra Execution such as the step functions' status, the number of active EC2 instances and how many messages are in the SQS",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "operation_code",
+            "required": true,
+            "description": "An unique identifier used to determine which resources belong to the execution",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "aws_region",
+            "required": false,
+            "description": "Target AWS region in which the execution is taking place. If not provided, us-east-1 is assumed",
+            "type": "string",
+            "default": "us-east-1"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the information about the Hydra Execution",
+            "schema": {
+              "example": {
+                "acknowledged": true,
+                "execution_properties": {
+                  "WEB001": {
+                    "connection_type": "LOCALHOST",
+                    "delay": 30,
+                    "driver_type": "CHROME",
+                    "max_retakes": 15,
+                    "parser_version": "4.2.3",
+                    "public_quantity": 9999,
+                    "quantity": 10,
+                    "query_id": "WEB001",
+                    "query_version": "1.8.2",
+                    "referrer": null,
+                    "timeout": 15,
+                    "user_agent": [
+                      "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"
+                    ]
+                  }
+                },
+                "sqs_content": {
+                  "WEB001": 15648
+                },
+                "missing_resources": false
+              },
+              "properties": {
+                "acknowledged": {
+                  "description": "Flag that defines if the request was completed",
+                  "type": "boolean"
+                },
+                "execution_properties": {
+                  "description": "JSON that provides the properties of the queries currenty executing under the provided operation_code",
+                  "type": "object"
+                },
+                "sqs_content": {
+                  "description": "Number of messages remaining to be processed in each query",
+                  "type": "object"
+                },
+                "missing_resource": {
+                  "type": "boolean",
+                  "description": "Flag that defines if there is any missing resource in the listing. This is due to an execution structure still being created"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuthentication": []
+          }
+        ]
+      }
+    },
+    "/stop_execution": {
+      "delete": {
+        "tags": [
+          "Execution Workflow"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Stop a Hydra execution, all the instances are deleted, all the inputs remaining to be processes are deleted. However, all the data processed is still avaliable for variable construction",
+        "parameters": [
+          {
+            "name": "request body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "operation_code": {
+                  "type": "string",
+                  "description": "An unique identifier used to determine which resources belong to the execution"
+                },
+                "aws_region": {
+                  "type": "string",
+                  "description": "Target AWS region in which the execution is taking place. If not provided, us-east-1 is assumed"
+                }
+              },
+              "required": [
+                "operation_code"
+              ]
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The delete request was processed successfully",
+            "schema": {
+              "example": {
+                "acknowledged": true,
+                "message": "All the resources were deleted"
+              },
+              "properties": {
+                "acknowledged": {
+                  "description": "Flag that defines if the request was completed",
+                  "type": "boolean"
+                },
+                "message": {
+                  "description": "Human readeable explanation for the execution",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuthentication": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ApiKeyAuthentication": {
+      "type": "apiKey",
+      "name": "x-api-key",
+      "in": "header"
+    }
+  },
+  "x-amazon-apigateway-request-validators": {
+    "basic": {
+      "validateRequestBody": true,
+      "validateRequestParameters": true
+    },
+    "params-only": {
+      "validateRequestBody": false,
+      "validateRequestParameters": true
+    }
+  },
+  "x-amazon-apigateway-request-validator": "basic"
+}
