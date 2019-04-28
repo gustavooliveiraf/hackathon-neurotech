@@ -9,14 +9,14 @@ called 'properties' with some useful tools and information about how we want you
 """
 """
 <#@#HydraMetadata#@#>
-{"version":"1.0.1",
+{"version":"1.0.0",
 "requirements":["beautifulsoup4"],
-"developer_contact":"camposmoraes@outlook.com",
+"developer_contact":"gof@cin.ufpe.br",
 "host": "https://www.lovemondays.com.br/trabalhar-na-",
 "timeout":"15",
 "selenium_usage":"true",
-"query_key":"cnpj",
-"query_name":"GRD002"}
+"query_key":"fantasia",
+"query_name":"GRD003"}
 </#@#HydraMetadata#@#>
 """
 """ NeuroLake imports """
@@ -64,10 +64,9 @@ def query_execution(input_data, properties):
 
     # First, you need to retrieve the information from the source we passed to you. You can use the method 'get_target_host()'
     # to do so. Here, that method only accesses an environment variable.
-    print('>>>>>>>>>>>>.',input_data['cnpj'])
     def parser_string(text):
         text =  text.strip()
-        text = text.replace('\n', " ")
+        text = text.replace('\n', "")
 
         return text
         
@@ -81,16 +80,17 @@ def query_execution(input_data, properties):
     cleaned_html = save_scraper_data(DRIVER.page_source, input_data)
 
     parsed_html = BeautifulSoup(cleaned_html)
-    table = parsed_html.body.find_all('div', attrs={'class': 'lm-RatingStar'})
+    table = parsed_html.body.find_all('div', attrs={'class': 'lm-RatingStar-value'})
 
     result = {}
+    satisfacao = ''
 
     for element in table:
-        key = "rate"
-        value = parser_string(element.find('div lm-RatingStar-value').text)
-        # value = value.split(" ")
-        result[key] = value
-    
+        satisfacao = parser_string(element.text)
+        break
+
+    result['satisfacao'] = satisfacao
+
     return result
 
 
@@ -118,10 +118,7 @@ def request(input_data, properties):
     return query_info
 
 def test_request():    
-    # You can extend the properties from you file metadata
     my_test_properties = Utils.load_parameters(__file__)
 
-    result = request({"cnpj":"neurotech"}, my_test_properties)
+    result = request({"fantasia":"neurotech"}, my_test_properties)
     assert type(result) == dict
-    # assert result["Nome de fantasia"] == "NEUROTECH"
-
