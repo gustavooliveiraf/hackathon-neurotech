@@ -9,7 +9,7 @@ called 'properties' with some useful tools and information about how we want you
 """
 """
 <#@#HydraMetadata#@#>
-{"version":"1.0.0",
+{"version":"1.0.1",
 "requirements":["beautifulsoup4"],
 "developer_contact":"gof@cin.ufpe.br",
 "host": "https://www.lovemondays.com.br/trabalhar-na-",
