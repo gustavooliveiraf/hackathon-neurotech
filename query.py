@@ -16,7 +16,7 @@ called 'properties' with some useful tools and information about how we want you
 "timeout":"15",
 "selenium_usage":"true",
 "query_key":"cnpj",
-"query_name":"GRD001"}
+"query_name":"GRD002"}
 </#@#HydraMetadata#@#>
 """
 """ NeuroLake imports """
