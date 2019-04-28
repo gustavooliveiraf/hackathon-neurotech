@@ -9,13 +9,13 @@ called 'properties' with some useful tools and information about how we want you
 """
 """
 <#@#HydraMetadata#@#>
-{"version":"1.0.0",
+{"version":"1.0.2",
 "requirements":["beautifulsoup4"],
 "developer_contact":"gof@cin.ufpe.br",
 "host": "https://www.google.com/search?q=",
 "timeout":"15",
 "selenium_usage":"true",
-"query_key":"name",
+"query_key":"fantasia",
 "query_name":"GRD001"}
 </#@#HydraMetadata#@#>
 """
