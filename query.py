@@ -84,12 +84,13 @@ def query_execution(input_data, properties):
     table = parsed_html.body.find_all('div', attrs={'class': 'SearchResults-count'})
 
     result = {}
+    value = ''
 
     for element in table:
-        key = "citacoes_jus"
         value = parser_string(element.find('span').text)
-        value = value.split(" ")
-        result[key] = value
+        value = value.split(" ")[1]
+    
+    result['citacoes_jus'] = value
     
     return result
 
