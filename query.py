@@ -12,7 +12,7 @@ called 'properties' with some useful tools and information about how we want you
 {"version":"1.0.1",
 "requirements":["beautifulsoup4"],
 "developer_contact":"camposmoraes@outlook.com",
-"host": "https://www.jusbrasil.com.br/busca?q=",
+"host": "https://www.lovemondays.com.br/trabalhar-na-",
 "timeout":"15",
 "selenium_usage":"true",
 "query_key":"cnpj",
@@ -81,14 +81,14 @@ def query_execution(input_data, properties):
     cleaned_html = save_scraper_data(DRIVER.page_source, input_data)
 
     parsed_html = BeautifulSoup(cleaned_html)
-    table = parsed_html.body.find_all('div', attrs={'class': 'SearchResults-count'})
+    table = parsed_html.body.find_all('div', attrs={'class': 'lm-RatingStar'})
 
     result = {}
 
     for element in table:
-        key = "citacoes_jus"
-        value = parser_string(element.find('span').text)
-        value = value.split(" ")
+        key = "rate"
+        value = parser_string(element.find('div lm-RatingStar-value').text)
+        # value = value.split(" ")
         result[key] = value
     
     return result
@@ -121,7 +121,7 @@ def test_request():
     # You can extend the properties from you file metadata
     my_test_properties = Utils.load_parameters(__file__)
 
-    result = request({"cnpj":"00948060000130"}, my_test_properties)
+    result = request({"cnpj":"neurotech"}, my_test_properties)
     assert type(result) == dict
     # assert result["Nome de fantasia"] == "NEUROTECH"
 
